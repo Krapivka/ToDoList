@@ -45,6 +45,8 @@ class _ToDoListAppState extends State<ToDoListApp> {
                 itemBuilder: (context, listIndex) {
                   Task task = box.get(listIndex)!;
                   return TaskTile(
+                    box: box,
+                    listIndex: listIndex,
                     description: task.description,
                     isDone: task.isDone,
                   );
