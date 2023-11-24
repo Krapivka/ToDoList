@@ -4,12 +4,12 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todo_list/app.dart';
 import 'package:todo_list/models/task.dart';
 
-const tasksBox = "Tasks";
+const tasksBox = "tasks1";
 
 void main() async {
   await Hive.initFlutter();
-  Hive.registerAdapter(TaskAdapter());
   await Hive.openBox<Task>(tasksBox);
+  Hive.registerAdapter(TaskAdapter());
   runApp(const ProviderScope(child: MyApp()));
 }
 
