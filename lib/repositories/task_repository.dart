@@ -11,13 +11,20 @@ class TaskRepository extends ChangeNotifier {
   }
 
   void addTask({required String description}) {
-    boxTasks.put(boxTasks.length + 1,
-        Task(id: boxTasks.length + 1, description: description));
+    int? key;
+    if (boxTasks.values.isNotEmpty) {
+      key = boxTasks.values.last.id + 1;
+    } else {
+      key = 1;
+    }
+    boxTasks.put(key, Task(id: key, description: description));
+    debugPrint(boxTasks.values.toString());
     notifyListeners();
   }
 
   void deleteTask({required int id}) {
     boxTasks.delete(id);
+    debugPrint(boxTasks.values.toString());
     notifyListeners();
   }
 
@@ -25,6 +32,7 @@ class TaskRepository extends ChangeNotifier {
     Task newTask =
         Task(id: task.id, description: description, isDone: task.isDone);
     boxTasks.put(task.id, newTask);
+    debugPrint(boxTasks.values.toString());
     notifyListeners();
   }
 

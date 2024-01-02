@@ -4,12 +4,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todo_list/app.dart';
 import 'package:todo_list/models/task.dart';
 
-const tasksBox = "tasks1";
+const tasksBox = "new1";
 
 void main() async {
   await Hive.initFlutter();
-  await Hive.openBox<Task>(tasksBox);
   Hive.registerAdapter(TaskAdapter());
+  await Hive.openBox<Task>(tasksBox);
+
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.orange),
       home: ToDoListApp(
-        title: 'TODO List app',
+        title: 'Simplest TODO',
       ),
     );
   }

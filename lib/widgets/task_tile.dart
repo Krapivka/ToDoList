@@ -37,17 +37,26 @@ class TaskTileState extends ConsumerState<TaskTile> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextButton(
-                  onPressed: () {
-                    setState(() {
-                      _dialogBuilder(context);
-                    });
-                  },
-                  child: Text(widget.task.description),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _dialogBuilder(context);
+                        });
+                      },
+                      child: Text(
+                        widget.task.description,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    ),
+                  ),
                 ),
                 IconButton(
                     onPressed: () {
-                      setState(() async {
+                      setState(() {
                         final Task tempTask = Task(
                             description: controllerUpdateField.text,
                             isDone: !widget.task.isDone,
@@ -75,7 +84,7 @@ class TaskTileState extends ConsumerState<TaskTile> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Edit a task'),
+          title: const Text('Изменить задачу'),
           content: TextField(
             controller: controllerUpdateField,
           ),
@@ -84,7 +93,7 @@ class TaskTileState extends ConsumerState<TaskTile> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Disable'),
+              child: const Text('Отмена'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -93,7 +102,7 @@ class TaskTileState extends ConsumerState<TaskTile> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Enable'),
+              child: const Text('Принять'),
               onPressed: () {
                 taskRep.updateTask(
                     task: widget.task, description: controllerUpdateField.text);
